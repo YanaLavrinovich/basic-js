@@ -24,7 +24,6 @@ function createDreamTeam(members) {
 
   let teamName = "";
   for (const name of members) {
-    console.log(name);
     if (typeof name == "string") {
       teamName = teamName.concat(name.trim()[0].toUpperCase());
     }
