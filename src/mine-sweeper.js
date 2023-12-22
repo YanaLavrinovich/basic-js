@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require("../extensions/index.js");
 
 /**
  * In the popular Minesweeper game you have a board with some mines and those cells
@@ -23,11 +23,77 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function minesweeper(matrix) {
+  let newMatrix = [];
+  for (x = 0; x < matrix.length; x++) {
+    let row = [];
+    for (y = 0; y < matrix[x].length; y++) {
+      row.push(getCellNumber(matrix, x, y));
+    }
+    newMatrix.push(row);
+  }
+
+  return newMatrix;
+}
+
+function getCellNumber(matrix, xRow, yCol) {
+  let resultNum = 0;
+  if (xRow !== 0) {
+    if (hasMine(matrix[xRow - 1][yCol])) {
+      resultNum++;
+    }
+
+    if (yCol < matrix.length - 1) {
+      if (hasMine(matrix[xRow - 1][yCol + 1])) {
+        resultNum++;
+      }
+    }
+  }
+
+  if (xRow < matrix.length - 1) {
+    if (hasMine(matrix[xRow + 1][yCol])) {
+      resultNum++;
+    }
+  }
+
+  if (yCol !== 0) {
+    if (hasMine(matrix[xRow][yCol - 1])) {
+      resultNum++;
+    }
+    if (xRow < matrix.length - 1) {
+      if (hasMine(matrix[xRow + 1][yCol - 1])) {
+        resultNum++;
+      }
+    }
+  }
+
+  if (yCol < matrix.length - 1) {
+    if (hasMine(matrix[xRow][yCol + 1])) {
+      resultNum++;
+    }
+  }
+
+  if (xRow !== 0 && yCol !== 0) {
+    if (hasMine(matrix[xRow - 1][yCol - 1])) {
+      resultNum++;
+    }
+  }
+
+  if (xRow < matrix.length - 1 && yCol < matrix.length - 1) {
+    if (hasMine(matrix[xRow + 1][yCol + 1])) {
+      resultNum++;
+    }
+  }
+  return resultNum;
+}
+
+function hasMine(value) {
+  if (value === undefined) {
+    return false;
+  }
+  return value;
 }
 
 module.exports = {
-  minesweeper
+  minesweeper,
 };
